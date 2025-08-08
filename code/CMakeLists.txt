@@ -2,19 +2,22 @@ cmake_minimum_required (VERSION 3.8)
 
 project (VulkanTutorial)
 
-find_package (glfw3 REQUIRED)
-find_package (glm REQUIRED)
-find_package (Vulkan REQUIRED)
-find_package (tinyobjloader REQUIRED)
+# Add GLFW, GLM, and tinyobjloader from submodule
+add_subdirectory(external/glfw)
+add_subdirectory(external/glm)
+add_subdirectory(external/tinyobjloader)
+add_library(tinyobjloader::tinyobjloader ALIAS tinyobjloader)
 
-find_package (PkgConfig)
-pkg_get_variable (STB_INCLUDEDIR stb includedir)
+find_package (Vulkan REQUIRED)
+
+# Look for stb_image.h in the vendored stb directory
+find_path(STB_INCLUDEDIR
+  NAMES stb_image.h
+  PATHS ${CMAKE_CURRENT_SOURCE_DIR}/external/stb
+)
+
 if (NOT STB_INCLUDEDIR)
-  unset (STB_INCLUDEDIR)
-  find_path (STB_INCLUDEDIR stb_image.h PATH_SUFFIXES stb)
-endif ()
-if (NOT STB_INCLUDEDIR)
-  message (FATAL_ERROR "stb_image.h not found")
+  message(FATAL_ERROR "stb_image.h not found in external/stb")
 endif ()
 
 add_executable (glslang::validator IMPORTED)

@@ -1,0 +1,12 @@
+[submodule "code/external/glfw"]
+	path = code/external/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "code/external/glm"]
+	path = code/external/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "code/external/tinyobjloader"]
+	path = code/external/tinyobjloader
+	url = https://github.com/tinyobjloader/tinyobjloader.git
+[submodule "code/external/stb"]
+	path = code/external/stb
+	url = https://github.com/nothings/stb.git
